@@ -20,7 +20,7 @@ public class WaterEvent {
             HarderStats.inWater = false;
 
             InfoReceptionService infoReceptionService = InfoReceptionService.InfoReceptionServiceFactory.get();
-            infoReceptionService.updateTimeInWater(player.getUuid(), timeInWater);
+            infoReceptionService.updateTimeInWater(player.getGameProfile().getId(), timeInWater);
         }
 
         return ActionResult.PASS;

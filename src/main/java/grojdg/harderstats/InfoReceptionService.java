@@ -3,6 +3,8 @@ package grojdg.harderstats;
 import com.google.gson.JsonObject;
 import grojdg.harderstats.networking.HTTPSender;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -15,9 +17,17 @@ public class InfoReceptionService {
     // ticks to wait until dispatching
     // ~20 ticks per second
     public long dispatchTime = 200L;
+    private String auth;
 
     public InfoReceptionService() {
         playerStats = new HashMap();
+
+        try {
+            auth = Files.readString(Paths.get("", "auth.txt").toAbsolutePath());
+
+        } catch (Exception e) {
+            HarderStats.LOGGER.error("Reading auth failed: " + e);
+        }
     }
 
     // dispatch sends out the collection info and wipes the hashmap
@@ -28,7 +38,8 @@ public class InfoReceptionService {
             PlayerStats stats = entry.getValue();
 
             JsonObject jsonInfo = new JsonObject();
-            jsonInfo.addProperty("UUID", uuid.toString());
+            jsonInfo.addProperty("auth", auth);
+            jsonInfo.addProperty("uuid", uuid.toString());
 
             // we only send the stat if it's actually changed from default
             if (stats.getTimeInWater() != 0) {
@@ -55,7 +66,10 @@ public class InfoReceptionService {
                 jsonInfo.addProperty("experienceGained", stats.getExperienceGained());
             }
 
-            HTTPSender.send(jsonInfo.toString());
+            // if we have any stats added (2 is auth and ID)
+            if (jsonInfo.size() > 2) {
+                HTTPSender.send(jsonInfo.toString());
+            }
         }
 
         playerStats = new HashMap<>();

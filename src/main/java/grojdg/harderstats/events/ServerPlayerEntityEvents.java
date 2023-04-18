@@ -8,7 +8,7 @@ import net.minecraft.util.ActionResult;
 public class ServerPlayerEntityEvents {
     public static ActionResult onDamage(DamageSource source, float amount, ServerPlayerEntity player) {
         if((!source.getName().equals("hih") && !source.getType().msgId().equals("outOfWorld"))) {
-            InfoReceptionService.InfoReceptionServiceFactory.get().updateDamageTaken(player.getUuid(), (int) amount);
+            InfoReceptionService.InfoReceptionServiceFactory.get().updateDamageTaken(player.getGameProfile().getId(), (int) amount);
         }
 
         return ActionResult.PASS;
