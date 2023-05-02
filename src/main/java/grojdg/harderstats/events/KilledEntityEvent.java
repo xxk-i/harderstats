@@ -10,7 +10,8 @@ public class KilledEntityEvent {
 
     public static void onKilledEntity(ServerWorld world, Entity entity, LivingEntity killedEntity) {
         if (entity.isPlayer() && !killedEntity.isPlayer()) {
-            InfoReceptionService.InfoReceptionServiceFactory.get().updateMobsKilled(((ServerPlayerEntity)entity).getGameProfile().getId() , 1);
+            InfoReceptionService.InfoReceptionServiceFactory.get()
+                    .updateMobsKilled(((ServerPlayerEntity)entity).getGameProfile().getId() , 1);
         }
     }
 }

@@ -29,6 +29,7 @@ public class HarderStats implements ModInitializer {
 		ServerPlayerEntityCallbacks.AFTER_DAMAGE.register(ServerPlayerEntityEvents::onDamage);
 		ServerPlayerEntityCallbacks.AFTER_DEATH.register(ServerPlayerEntityEvents::onDeath);
 		ServerPlayerEntityCallbacks.AFTER_EXPERIENCE_GAIN.register(ServerPlayerEntityEvents::onExperienceGain);
+		ServerPlayerEntityCallbacks.AFTER_PLAYER_DISCONNECT.register(ServerPlayerEntityEvents::onPlayerDisconnect);
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(KilledEntityEvent::onKilledEntity);
 		FoodCallback.EVENT.register(FoodEvent::onEatFood);
 
@@ -36,6 +37,5 @@ public class HarderStats implements ModInitializer {
 		ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
 			((TickAccess)server).harderstats_setTimer(InfoReceptionService.InfoReceptionServiceFactory.get().dispatchTime);
 		});
-
 	}
 }

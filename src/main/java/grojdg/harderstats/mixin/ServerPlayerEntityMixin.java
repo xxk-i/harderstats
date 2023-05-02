@@ -26,4 +26,11 @@ public class ServerPlayerEntityMixin {
     private void onAddExperience(int experience, CallbackInfo ci) {
         ServerPlayerEntityCallbacks.AFTER_EXPERIENCE_GAIN.invoker().interact(experience, (ServerPlayerEntity) (Object) this);
     }
+
+//    @Inject(method = "")
+
+    @Inject(method = "onDisconnect", at = @At("TAIL"))
+    private void onPlayerDisconnect(CallbackInfo ci) {
+        ServerPlayerEntityCallbacks.AFTER_PLAYER_DISCONNECT.invoker().interact((ServerPlayerEntity) (Object) this);
+    }
 }

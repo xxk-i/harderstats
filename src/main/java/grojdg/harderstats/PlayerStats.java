@@ -1,8 +1,13 @@
 package grojdg.harderstats;
 
+import net.minecraft.util.Util;
 
 public class PlayerStats {
+    private long timeEnteredWater = 0;
+
     private long timeInWater = 0;
+
+    private boolean isInWater = false;
 
     private int damageTaken = 0;
 
@@ -12,10 +17,24 @@ public class PlayerStats {
 
     private int experienceGained = 0;
 
-    private boolean hasDied = false;
-
-    public void updateTimeInWater(long time) {
+    private void updateTimeInWater(long time) {
         timeInWater += time;
+    }
+
+    public void setIsInWater(boolean isInWater) {
+        // Entered water
+        if (!this.isInWater && isInWater) {
+            timeEnteredWater = Util.getMeasuringTimeMs();
+            this.isInWater = true;
+        }
+
+        // Exited water
+        if (this.isInWater && !isInWater) {
+            // update time, reset timeEnteredWater
+            updateTimeInWater(Util.getMeasuringTimeMs() - timeEnteredWater);
+            timeEnteredWater = 0;
+            this.isInWater = false;
+        }
     }
 
     public void updateDamageTaken(int damage) {
@@ -34,20 +53,12 @@ public class PlayerStats {
         experienceGained += experience;
     }
 
-    public void setHasDied() {
-        hasDied = true;
-    }
-
     public long getTimeInWater() {
         return timeInWater;
     }
 
     public int getDamageTaken() {
         return damageTaken;
-    }
-
-    public boolean getHasDied() {
-        return hasDied;
     }
 
     public int getMobsKilled() {

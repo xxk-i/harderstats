@@ -23,7 +23,7 @@ public class TickMixin implements TickAccess {
     private void onTick(CallbackInfo ci) {
         if (--time == 0L ) {
             InfoReceptionService service = InfoReceptionService.InfoReceptionServiceFactory.get();
-            service.dispatch();
+            service.dispatch(false );
             time = service.dispatchTime;
         }
     }
