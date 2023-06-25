@@ -2,8 +2,6 @@ package grojdg.harderstats.networking;
 
 import grojdg.harderstats.HarderStats;
 import grojdg.harderstats.HarderStatsConstants;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.server.network.ServerPlayerEntity;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -14,6 +12,29 @@ import java.net.URLConnection;
 public class HTTPSender {
     private static boolean HTTP_DEBUG = true;
 
+    public static long getUptime(String rawURL) {
+        long uptime = 0;
+
+        try {
+            URL url = new URL(rawURL);
+            URLConnection connection = url.openConnection();
+            HttpURLConnection httpURLConnection = (HttpURLConnection) connection;
+            httpURLConnection.setRequestMethod("GET");
+            httpURLConnection.setRequestProperty("Content-Type", "application/json");
+
+            String responseMessage = httpURLConnection.getResponseMessage();
+
+            if (HTTP_DEBUG) {
+                HarderStats.LOGGER.info("Get uptime response: " + responseMessage);
+            }
+
+            uptime = Long.parseLong(responseMessage);
+        } catch (Exception e) {
+            HarderStats.LOGGER.error("Something went wrong getting the uptime: " + e);
+        }
+
+        return uptime;
+    }
 
     public static void send(String rawUrl, String payload, boolean wait) {
         if (HarderStatsConstants.DEBUG) {
