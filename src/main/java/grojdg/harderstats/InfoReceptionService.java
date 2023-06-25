@@ -14,7 +14,8 @@ import java.util.UUID;
 // Service that accepts updates to stats on players
 // and can dispatch that info to the hardercore-api
 public class InfoReceptionService {
-    private static final String rawURL = "http://127.0.0.1:8080";
+//    private static final String rawURL = "http://127.0.0.1:8080";
+    private static final String rawURL = "http://35.170.249.207:8080";
     private HashMap<UUID, PlayerStats> playerStats;
 
     // ticks to wait until dispatching
@@ -43,7 +44,7 @@ public class InfoReceptionService {
     public void dispatch(boolean wait) {
         //iterate through the hashmap oopsie
         for (Map.Entry<UUID, PlayerStats> entry : playerStats.entrySet()) {
-            UUID uuid  = entry.getKey();
+            UUID uuid = entry.getKey();
             PlayerStats stats = entry.getValue();
 
             JsonObject jsonInfo = new JsonObject();

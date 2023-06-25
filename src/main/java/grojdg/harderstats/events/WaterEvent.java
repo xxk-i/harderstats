@@ -1,10 +1,8 @@
 package grojdg.harderstats.events;
 
-import grojdg.harderstats.HarderStats;
 import grojdg.harderstats.InfoReceptionService;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Util;
 
 public class WaterEvent {
 

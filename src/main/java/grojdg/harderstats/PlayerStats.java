@@ -3,6 +3,7 @@ package grojdg.harderstats;
 import net.minecraft.util.Util;
 
 public class PlayerStats {
+    public static int worldUptime = 0;
     private long timeEnteredWater = 0;
 
     private long timeInWater = 0;

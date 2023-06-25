@@ -12,16 +12,8 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.URLConnection;
-
 public class HarderStats implements ModInitializer {
 	public static final Logger LOGGER = LoggerFactory.getLogger(HarderStatsConstants.MOD_ID);
-
-	public static long startTimeInWater = 0;
-
-	public static boolean inWater = false;
-
-	public static URLConnection connection;
 
 	@Override
 	public void onInitialize() {
