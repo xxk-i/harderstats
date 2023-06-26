@@ -36,8 +36,4 @@ public class ServerPlayerEntityEvents {
     public static void onPlayerDisconnect(ServerPlayerEntity player) {
         InfoReceptionService.InfoReceptionServiceFactory.get().setIsInWater(player.getUuid(), false);
     }
-
-    public static void onPlayerConnect(ServerPlayerEntity player) {
-        InfoReceptionService.InfoReceptionServiceFactory.get().setIsInWater(player.getUuid(), player.isWet());
-    }
 }

@@ -4,8 +4,6 @@ import com.google.gson.JsonObject;
 import grojdg.harderstats.networking.HTTPSender;
 import net.minecraft.util.Util;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -49,7 +47,7 @@ public class InfoReceptionService {
 
     // dispatch sends out the collection info (uptime and player stats) and wipes the hashmap
     public void dispatch(boolean wait) {
-        //iterate through the hashmap oopsie
+        // iterate through the hashmap oopsie
         for (Map.Entry<UUID, PlayerStats> entry : playerStats.entrySet()) {
             UUID uuid = entry.getKey();
             PlayerStats stats = entry.getValue();
@@ -59,8 +57,12 @@ public class InfoReceptionService {
             jsonInfo.addProperty("uuid", uuid.toString());
 
             // we only send the stat if it's actually changed from default
-            if (stats.getTimeInWater() != 0) {
-                jsonInfo.addProperty("timeInWater", stats.getTimeInWater());
+            if (stats.waterTimer.getTimeElapsed() != 0) {
+                jsonInfo.addProperty("timeInWater", stats.waterTimer.getTimeElapsed());
+            }
+
+            if (stats.netherTimer.getTimeElapsed() != 0) {
+                jsonInfo.addProperty("timeInNether", stats.netherTimer.getTimeElapsed());
             }
 
             if (stats.getDamageTaken() != 0) {
@@ -105,7 +107,7 @@ public class InfoReceptionService {
 
         createStatsEntry(uuid);
         PlayerStats stats = playerStats.get(uuid);
-        stats.setIsInWater(submerged);
+        stats.waterTimer.setIsTicking(submerged);
     }
 
     public void updateDamageTaken(UUID uuid, int damage) {
