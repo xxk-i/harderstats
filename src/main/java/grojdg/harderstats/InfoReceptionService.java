@@ -43,8 +43,10 @@ public class InfoReceptionService {
         }
     }
 
-    // dispatch sends out the collection info (uptime and player stats) and wipes the hashmap
+    // dispatch sends out the collection info (uptime and player stats) and resets them as needed
     public void dispatch(boolean wait) {
+        boolean refreshStats = false;
+
         // iterate through the hashmap oopsie
         for (Map.Entry<UUID, PlayerStats> entry : playerStats.entrySet()) {
             UUID uuid = entry.getKey();
@@ -65,28 +67,29 @@ public class InfoReceptionService {
 
             if (stats.getDamageTaken() != 0) {
                 jsonInfo.addProperty("damageTaken", stats.getDamageTaken());
+                stats.resetDamageTaken();
             }
 
             if (stats.getMobsKilled() != 0) {
                 jsonInfo.addProperty("mobsKilled", stats.getMobsKilled());
+                stats.resetMobsKilled();
             }
 
             if (stats.getFoodEaten() != 0) {
                 jsonInfo.addProperty("foodEaten", stats.getFoodEaten());
+                stats.resetFoodEaten();
             }
 
             if (stats.getExperienceGained() != 0) {
                 jsonInfo.addProperty("experienceGained", stats.getExperienceGained());
+                stats.resetExperienceGained();
             }
 
             // if we have any stats added (2 is auth and ID)
             if (jsonInfo.size() > 2) {
                 HTTPSender.send(rawURL + "/world/stats/" + uuid, jsonInfo.toString(), wait);
-                // reset stats
-                playerStats = new HashMap<>();
             }
         }
-
 
         // update uptime
         uptime = Util.getMeasuringTimeMs() - startupTime;
@@ -112,7 +115,6 @@ public class InfoReceptionService {
         if (!isAcceptingStats) {
             return;
         }
-
 
         createStatsEntry(uuid);
         PlayerStats stats = playerStats.get(uuid);

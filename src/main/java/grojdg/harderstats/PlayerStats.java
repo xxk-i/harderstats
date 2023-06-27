@@ -44,4 +44,20 @@ public class PlayerStats {
     public int getExperienceGained() {
         return experienceGained;
     }
+
+    public void resetDamageTaken() {
+        damageTaken = 0;
+    }
+
+    public void resetMobsKilled() {
+        mobsKilled = 0;
+    }
+
+    public void resetFoodEaten() {
+        foodEaten = 0;
+    }
+
+    public void resetExperienceGained() {
+        experienceGained = 0;
+    }
 }
