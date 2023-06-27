@@ -35,8 +35,6 @@ public class InfoReceptionService {
     public InfoReceptionService() {
         playerStats = new HashMap();
 
-//        uptime = HTTPSender.getUptime(rawURL + "/world/uptime");
-
         try {
             auth = Files.readString(Paths.get("", "auth.txt").toAbsolutePath());
 
