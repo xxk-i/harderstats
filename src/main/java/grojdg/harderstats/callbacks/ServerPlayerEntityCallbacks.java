@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.ActionResult;
 
 public class ServerPlayerEntityCallbacks {
@@ -47,6 +48,19 @@ public class ServerPlayerEntityCallbacks {
                 }
             });
 
+    public static final Event<OnMoveToWorld> ON_MOVE_TO_WORLD = EventFactory.createArrayBacked(OnMoveToWorld.class,
+            (listeners) -> (destination, player) -> {
+                for (OnMoveToWorld listener: listeners) {
+                    listener.interact(destination, player);
+                }
+            });
+
+    public static final Event<OnConstructPlayer> ON_CONSTRUCT_PLAYER = EventFactory.createArrayBacked(OnConstructPlayer.class,
+            (listeners) -> (world, player) -> {
+                for (OnConstructPlayer listener: listeners) {
+                    listener.interact(world, player);
+                }
+            });
 
     public interface AfterDamage {
         ActionResult interact(DamageSource source, float amount, ServerPlayerEntity player);
@@ -66,5 +80,13 @@ public class ServerPlayerEntityCallbacks {
 
     public interface AfterPlayerDisconnect {
         void interact(ServerPlayerEntity player);
+    }
+
+    public interface OnMoveToWorld {
+        void interact(ServerWorld destination, ServerPlayerEntity player);
+    }
+
+    public interface OnConstructPlayer {
+        void interact(ServerWorld world, ServerPlayerEntity player);
     }
 }

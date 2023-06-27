@@ -3,15 +3,9 @@ package grojdg.harderstats;
 import net.minecraft.util.Util;
 
 public class StatTimer {
-    private long timeStarted;
-    private boolean isTicking;
-    private long timeElapsed;
-
-    public StatTimer() {
-        timeStarted = 0;
-        isTicking = false;
-        timeElapsed = 0;
-    }
+    private long timeStarted = 0;
+    private boolean isTicking = false;
+    private long timeElapsed = 0;
 
     public void setIsTicking(boolean isTicking) {
         if (!this.isTicking && isTicking) {
@@ -28,5 +22,9 @@ public class StatTimer {
 
     public long getTimeElapsed() {
         return this.timeElapsed;
+    }
+
+    public long getTimeStarted() {
+        return this.timeStarted;
     }
 }

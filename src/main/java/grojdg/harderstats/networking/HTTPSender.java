@@ -3,6 +3,8 @@ package grojdg.harderstats.networking;
 import grojdg.harderstats.HarderStats;
 import grojdg.harderstats.HarderStatsConstants;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -11,30 +13,6 @@ import java.net.URLConnection;
 // Sends a PUT to our API given a JSON formatted string payload on a new thread
 public class HTTPSender {
     private static boolean HTTP_DEBUG = true;
-
-    public static long getUptime(String rawURL) {
-        long uptime = 0;
-
-        try {
-            URL url = new URL(rawURL);
-            URLConnection connection = url.openConnection();
-            HttpURLConnection httpURLConnection = (HttpURLConnection) connection;
-            httpURLConnection.setRequestMethod("GET");
-            httpURLConnection.setRequestProperty("Content-Type", "application/json");
-
-            String responseMessage = httpURLConnection.getResponseMessage();
-
-            if (HTTP_DEBUG) {
-                HarderStats.LOGGER.info("Get uptime response: " + responseMessage);
-            }
-
-            uptime = Long.parseLong(responseMessage);
-        } catch (Exception e) {
-            HarderStats.LOGGER.error("Something went wrong getting the uptime: " + e);
-        }
-
-        return uptime;
-    }
 
     public static void send(String rawUrl, String payload, boolean wait) {
         if (HarderStatsConstants.DEBUG) {

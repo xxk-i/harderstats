@@ -35,7 +35,7 @@ public class InfoReceptionService {
     public InfoReceptionService() {
         playerStats = new HashMap();
 
-        uptime = HTTPSender.getUptime(rawURL);
+//        uptime = HTTPSender.getUptime(rawURL + "/world/uptime");
 
         try {
             auth = Files.readString(Paths.get("", "auth.txt").toAbsolutePath());
@@ -84,11 +84,11 @@ public class InfoReceptionService {
             // if we have any stats added (2 is auth and ID)
             if (jsonInfo.size() > 2) {
                 HTTPSender.send(rawURL + "/world/stats/" + uuid, jsonInfo.toString(), wait);
+                // reset stats
+                playerStats = new HashMap<>();
             }
         }
 
-        // reset stats
-        playerStats = new HashMap<>();
 
         // update uptime
         uptime = Util.getMeasuringTimeMs() - startupTime;
@@ -108,6 +108,20 @@ public class InfoReceptionService {
         createStatsEntry(uuid);
         PlayerStats stats = playerStats.get(uuid);
         stats.waterTimer.setIsTicking(submerged);
+    }
+
+    public void setIsInNether(UUID uuid, boolean isInNether) {
+        if (!isAcceptingStats) {
+            return;
+        }
+
+
+        createStatsEntry(uuid);
+        PlayerStats stats = playerStats.get(uuid);
+        HarderStats.LOGGER.info("Nether timer is being set " + isInNether + " by " + uuid);
+        HarderStats.LOGGER.info("Nether timer start: " + stats.netherTimer.getTimeStarted());
+        HarderStats.LOGGER.info("Nether time current: " + Util.getMeasuringTimeMs());
+        stats.netherTimer.setIsTicking(isInNether);
     }
 
     public void updateDamageTaken(UUID uuid, int damage) {
