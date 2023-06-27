@@ -27,4 +27,10 @@ public class StatTimer {
     public long getTimeStarted() {
         return this.timeStarted;
     }
+
+    public void reset() {
+        this.timeStarted = 0;
+        this.isTicking = false;
+        this.timeElapsed = 0;
+    }
 }

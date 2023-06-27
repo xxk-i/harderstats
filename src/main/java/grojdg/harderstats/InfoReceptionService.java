@@ -59,10 +59,12 @@ public class InfoReceptionService {
             // we only send the stat if it's actually changed from default
             if (stats.waterTimer.getTimeElapsed() != 0) {
                 jsonInfo.addProperty("timeInWater", stats.waterTimer.getTimeElapsed());
+                stats.waterTimer.reset();
             }
 
             if (stats.netherTimer.getTimeElapsed() != 0) {
                 jsonInfo.addProperty("timeInNether", stats.netherTimer.getTimeElapsed());
+                stats.netherTimer.reset();
             }
 
             if (stats.getDamageTaken() != 0) {
@@ -118,9 +120,6 @@ public class InfoReceptionService {
 
         createStatsEntry(uuid);
         PlayerStats stats = playerStats.get(uuid);
-        HarderStats.LOGGER.info("Nether timer is being set " + isInNether + " by " + uuid);
-        HarderStats.LOGGER.info("Nether timer start: " + stats.netherTimer.getTimeStarted());
-        HarderStats.LOGGER.info("Nether time current: " + Util.getMeasuringTimeMs());
         stats.netherTimer.setIsTicking(isInNether);
     }
 
