@@ -41,14 +41,6 @@ public class ServerPlayerEntityEvents {
         InfoReceptionService.InfoReceptionServiceFactory.get().setIsInNether(player.getUuid(), false);
     }
 
-    // start back up nether timer if player is created (connects) and is in the nether
-    public static void onConstructPlayer(ServerWorld world, ServerPlayerEntity player) {
-        HarderStats.LOGGER.info("Player " + player.getUuid() + " being created in world: " + world.getRegistryKey());
-        if (world.getRegistryKey() == World.NETHER) {
-            InfoReceptionService.InfoReceptionServiceFactory.get().setIsInNether(player.getUuid(), true);
-        }
-    }
-
     public static void onMoveToWorld(ServerWorld destination, ServerPlayerEntity player) {
         HarderStats.LOGGER.info("Player is being moved into a world");
         if (destination.getRegistryKey() == World.NETHER) {

@@ -1,6 +1,7 @@
 package grojdg.harderstats;
 
 import grojdg.harderstats.accessors.TickAccess;
+import grojdg.harderstats.callbacks.PlayerManagerCallbacks;
 import grojdg.harderstats.callbacks.ServerPlayerEntityCallbacks;
 import grojdg.harderstats.callbacks.FoodCallback;
 import grojdg.harderstats.callbacks.WaterCallback;
@@ -23,9 +24,9 @@ public class HarderStats implements ModInitializer {
 		ServerPlayerEntityCallbacks.AFTER_EXPERIENCE_GAIN.register(ServerPlayerEntityEvents::onExperienceGain);
 		ServerPlayerEntityCallbacks.AFTER_PLAYER_DISCONNECT.register(ServerPlayerEntityEvents::onPlayerDisconnect);
 		ServerPlayerEntityCallbacks.ON_MOVE_TO_WORLD.register(ServerPlayerEntityEvents::onMoveToWorld);
-		ServerPlayerEntityCallbacks.ON_CONSTRUCT_PLAYER.register(ServerPlayerEntityEvents::onConstructPlayer);
 		ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(KilledEntityEvent::onKilledEntity);
 		FoodCallback.EVENT.register(FoodEvent::onEatFood);
+		PlayerManagerCallbacks.AFTER_PLAYER_CONNECT.register(PlayerManagerEvents::afterPlayerConnect);
 
 		// set our timer
 		ServerLifecycleEvents.SERVER_STARTED.register((server) -> {

@@ -13,10 +13,10 @@ import java.util.UUID;
 // Service that accepts updates to stats on players
 // and can dispatch that info to the hardercore-api
 public class InfoReceptionService {
-    private static final String rawURL = "http://127.0.0.1:8080";
+//    private static final String rawURL = "http://127.0.0.1:8080";
 
     private static long uptime = 0;
-//    private static final String rawURL = "http://35.170.249.207:8080";
+    private static final String rawURL = "http://35.170.249.207:8080";
     private HashMap<UUID, PlayerStats> playerStats;
 
     public static long startupTime = Util.getMeasuringTimeMs();

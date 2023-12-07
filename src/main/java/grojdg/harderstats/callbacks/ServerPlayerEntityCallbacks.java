@@ -34,13 +34,6 @@ public class ServerPlayerEntityCallbacks {
                 }
             });
 
-    public static final Event<AfterPlayerConnect> AFTER_PLAYER_CONNECT = EventFactory.createArrayBacked(AfterPlayerConnect.class,
-            (listeners) -> (player) -> {
-                for (AfterPlayerConnect listener : listeners) {
-                    listener.interact(player);
-                }
-            });
-
     public static final Event<AfterPlayerDisconnect> AFTER_PLAYER_DISCONNECT = EventFactory.createArrayBacked(AfterPlayerDisconnect.class,
             (listeners) -> (player) ->  {
                 for (AfterPlayerDisconnect listener : listeners) {
@@ -72,10 +65,6 @@ public class ServerPlayerEntityCallbacks {
 
     public interface AfterExperienceGain {
         void interact(int experience, ServerPlayerEntity player);
-    }
-
-    public interface AfterPlayerConnect {
-        void interact(ServerPlayerEntity player);
     }
 
     public interface AfterPlayerDisconnect {

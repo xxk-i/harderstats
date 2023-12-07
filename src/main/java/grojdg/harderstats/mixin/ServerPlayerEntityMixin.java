@@ -40,9 +40,4 @@ public class ServerPlayerEntityMixin {
     private void onMoveToWorld(ServerWorld destination, CallbackInfoReturnable<Entity> ci) {
         ServerPlayerEntityCallbacks.ON_MOVE_TO_WORLD.invoker().interact(destination, (ServerPlayerEntity) (Object) this);
     }
-
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void onConstructPlayer(MinecraftServer server, ServerWorld world, GameProfile profile, CallbackInfo ci) {
-        ServerPlayerEntityCallbacks.ON_CONSTRUCT_PLAYER.invoker().interact(world, (ServerPlayerEntity) (Object) this);
-    }
 }
