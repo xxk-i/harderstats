@@ -22,9 +22,8 @@ public class TickMixin implements TickAccess {
     @Inject(method = "tick", at = @At("TAIL"))
     private void onTick(CallbackInfo ci) {
         if (--time == 0L ) {
-            InfoReceptionService service = InfoReceptionService.InfoReceptionServiceFactory.get();
-            service.dispatch(false );
-            time = service.dispatchTime;
+            InfoReceptionService.INSTANCE.dispatch(false );
+            time = InfoReceptionService.INSTANCE.getDispatchTime();
         }
     }
 

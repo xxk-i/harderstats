@@ -2,24 +2,30 @@
 	"schemaVersion": 1,
 	"id": "harderstats",
 	"version": "${version}",
-	"name": "HarderStats",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "harderstats",
+	"description": "Collects player stats for Hardercore",
 	"authors": [
 		"Me!"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://hardercoremc.net",
+		"sources": "https://github.com/xxk-i/harderstats"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/harderstats/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-          "grojdg.harderstats.HarderStats"
+			{
+				"value": "grojdg.harderstats.Harderstats",
+				"adapter": "kotlin"
+			}
 		],
 		"client": [
-			"grojdg.harderstats.HarderStatsClient"
+			{
+				"value": "grojdg.harderstats.HarderstatsClient",
+				"adapter": "kotlin"
+			}
 		]
 	},
 	"mixins": [
@@ -30,10 +36,11 @@
 		}
 	],
 	"depends": {
-		"fabricloader": ">=0.14.19",
-		"minecraft": "~1.19.4",
+		"fabricloader": ">=0.15.0",
+		"minecraft": "~1.20.4",
 		"java": ">=17",
-		"fabric-api": "*"
+		"fabric-api": "*",
+		"fabric-language-kotlin": ">=1.9.21"
 	},
 	"suggests": {
 		"another-mod": "*"

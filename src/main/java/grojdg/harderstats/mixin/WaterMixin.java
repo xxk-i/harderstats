@@ -11,6 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class WaterMixin {
 	@Inject(at = @At("TAIL"), method = "updateWaterSubmersionState")
 	private void onUpdateWaterSubmersionState(CallbackInfoReturnable<Boolean> cir) {
-		WaterCallback.EVENT.invoker().interact((PlayerEntity) (Object) this);
+		WaterCallback.Companion.getEvent().invoker().interact((PlayerEntity) (Object) this);
 	}
 }

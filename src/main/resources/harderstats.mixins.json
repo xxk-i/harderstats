@@ -3,11 +3,11 @@
 	"package": "grojdg.harderstats.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"WaterMixin",
-		"TickMixin",
-      "ServerPlayerEntityMixin",
 		"FoodMixin",
-		"PlayerManagerMixin"
+		"PlayerManagerMixin",
+		"ServerPlayerEntityMixin",
+		"TickMixin",
+		"WaterMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
