@@ -1,6 +1,6 @@
 package grojdg.harderstats.mixin;
 
-import grojdg.harderstats.callbacks.OnFoodEaten;
+import grojdg.harderstats.events.OnFoodEaten;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;

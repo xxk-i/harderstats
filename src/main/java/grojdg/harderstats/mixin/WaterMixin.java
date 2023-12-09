@@ -1,6 +1,6 @@
 package grojdg.harderstats.mixin;
 
-import grojdg.harderstats.callbacks.WaterCallback;
+import grojdg.harderstats.events.WaterCallback;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

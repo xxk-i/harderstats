@@ -1,6 +1,6 @@
 package grojdg.harderstats.mixin;
 
-import grojdg.harderstats.callbacks.AfterPlayerConnect;
+import grojdg.harderstats.events.AfterPlayerConnect;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ConnectedClientData;

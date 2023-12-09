@@ -1,16 +1,19 @@
 package grojdg.harderstats.events
 
-import grojdg.harderstats.HarderStats
-import grojdg.harderstats.InfoReceptionService
+import net.fabricmc.fabric.api.event.EventFactory
 import net.minecraft.server.network.ServerPlayerEntity
-import net.minecraft.world.World
 
 object PlayerManagerEvents {
-    // start back up the nether timer if the player joins and spawns into the nether
-    fun afterPlayerConnect(player: ServerPlayerEntity) {
-        HarderStats.LOGGER.info("afterPlayerConnect is in world: " + player.world.registryKey)
-        if (player.world.registryKey === World.NETHER) {
-            InfoReceptionService.setIsInNether(player.uuid, true)
+    fun interface AfterPlayerConnect {
+        fun interact(player: ServerPlayerEntity)
+    }
+
+    val AFTER_PLAYER_CONNECT = EventFactory.createArrayBacked(AfterPlayerConnect::class.java
+    ) { listeners ->
+        AfterPlayerConnect { player ->
+            for (listener in listeners) {
+                listener.interact(player)
+            }
         }
     }
 }
